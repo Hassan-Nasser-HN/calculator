@@ -3,3 +3,24 @@
 //
 
 #include "calculator.h"
+
+calculator::calculator() {
+
+}
+
+calculator::~calculator() {
+
+}
+
+double calculator::add(double firstNum, double secNum) {return firstNum + secNum;}
+
+
+double calculator::minus(double firstNum, double secNum) {return firstNum - secNum;}
+
+
+double calculator::multiply(double firstNum, double secNum) {return firstNum * secNum;}
+
+
+double calculator::divide(double firstNum, double secNum) {return firstNum / secNum;}
+
+
