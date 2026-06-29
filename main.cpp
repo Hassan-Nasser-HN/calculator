@@ -1,6 +1,45 @@
 //
 // Created by 20111 on 27/06/2026.
 //
+/*
+Version 1 - Initial Release(AI)
+Features:
+- Converts infix expressions to postfix notation using a stack.
+- Evaluates postfix expressions correctly.
+- Supports the four basic arithmetic operations:
+  - Addition (+)
+  - Subtraction (-)
+  - Multiplication (*)
+  - Division (/)
+- Supports parentheses to control operator precedence.
+- Uses Object-Oriented Programming by separating arithmetic operations into a Calculator class.
+- Interactive console interface with the option to perform multiple calculations.
+- Uses the C++ Standard Library stack for expression parsing and evaluation.
+
+Limitations:
+- Supports only single-digit numbers (e.g., 1, 5, 9).
+- Does not support decimal (floating-point) numbers.
+- Does not support negative numbers.
+- Does not ignore spaces in the input expression.
+- No validation for invalid mathematical expressions.
+- No protection against stack underflow when the expression is incorrect.
+- No handling for mismatched parentheses.
+- Division by zero handling depends on the Calculator class implementation.
+- Operator precedence logic contains repeated conditions that could be simplified.
+- The code can be refactored into smaller helper functions to improve readability and maintainability.
+
+Future Improvements:
+- Add support for multi-digit numbers.
+- Add support for floating-point values.
+- Improve input validation and error handling.
+- Simplify the infix-to-postfix conversion algorithm.
+- Add support for unary minus (negative numbers).
+- Improve the user interface.
+- Add unit tests.
+- Separate parsing and evaluation into dedicated classes following SOLID principles.
+
+*/
+
 #include <iostream>
 #include <calculator.h>
 #include <string>
