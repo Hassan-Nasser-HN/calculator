@@ -10,6 +10,7 @@ using namespace std;
 string infix_to_postfix(string exp);
 double operation(string exp);
 
+
 int main() {
     string expression;
     char answer;
@@ -25,18 +26,12 @@ int main() {
         cin >> answer;
 
     }while (answer == 'Y' || answer == 'y');
-
-
-
-
 }
 
 string infix_to_postfix(string exp) {
-
      stack<char> op;
      string result;
     for(int i = 0; i < exp.length(); i++){
-
         char c = exp[i];
         //-------------------1-------------------
         if(isdigit(c)){ result.push_back(c); }
@@ -91,10 +86,73 @@ string infix_to_postfix(string exp) {
     }
 
     //------------5-----------------
-    while(!op.empty()){op.pop();}
+    while (!op.empty()) {
+        result.push_back(op.top());
+        op.pop();
+    }
 
     cout << endl;
 
   return result;
 };
-//double operation(string exp){};
+double operation(string exp) {
+    calculator calculator;
+    stack<double> outcome;
+    double result;
+    double firstNum;
+    double secNum;
+    for(int i = 0; i < exp.length(); i++) {
+        if(isdigit(exp[i])){ outcome.push(exp[i]-'0'); }
+        else {
+            switch(exp[i]) {
+                case '+':
+                 firstNum = outcome.top(); outcome.pop();
+
+                 secNum = outcome.top(); outcome.pop();
+
+                 outcome.push( calculator.add(firstNum, secNum));
+
+                    break;
+                case '-':
+                    firstNum = outcome.top(); outcome.pop();
+
+                    secNum = outcome.top(); outcome.pop();
+
+                    outcome.push( calculator.minus(secNum, firstNum));
+
+                    break;
+                case '*':
+                    firstNum = outcome.top(); outcome.pop();
+
+                    secNum = outcome.top(); outcome.pop();
+
+                    outcome.push( calculator.multiply(firstNum, secNum));
+
+                    break;
+                case '/':
+                    firstNum = outcome.top(); outcome.pop();
+
+                    secNum = outcome.top(); outcome.pop();
+
+                    outcome.push( calculator.divide(secNum, firstNum));
+
+                    break;
+
+
+            }
+
+
+
+
+        }
+
+
+
+
+    }
+    return outcome.top();
+
+
+
+
+};
