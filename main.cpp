@@ -44,6 +44,7 @@ Future Improvements:
 #include <calculator.h>
 #include <string>
 #include <stack>
+#include <algorithm>
 using namespace std;
 
 string infix_to_postfix(string exp);
@@ -67,73 +68,55 @@ int main() {
     }while (answer == 'Y' || answer == 'y');
 }
 
-string infix_to_postfix(string exp) {
-     stack<char> op;
-     string result;
-    for(int i = 0; i < exp.length(); i++){
-        char c = exp[i];
-        //-------------------1-------------------
-        if(isdigit(c)){ result.push_back(c); }
-        //-------------------2--------------------
-        else if(c=='+' || c=='-' || c=='*' || c=='/'){
-            //----------------------2.1------------------------
-            if(op.empty() || op.top()=='(') {op.push(c); }
-             //----------------------2.2-------------------------
-           else if((op.top()=='+' || op.top()=='-') && (c=='*' || c=='/')) {op.push(c);}
-            //----------------------2.3---------------------------
-            else if((op.top()=='*' || op.top()=='/') && (c=='+' || c=='-')){
-                while(!op.empty() && (op.top()=='*' || op.top()=='/') && op.top()!='(') {
-                    result.push_back(op.top());
-                    op.pop();
-                }
-                op.push(c);
-            }
-            //-------------------------2.4-----------------------------
-            else if((op.top()=='*' || op.top()=='/') && (c=='*' || c=='/')){
-                while(!op.empty() && (op.top()=='*' || op.top()=='/') && op.top()!='(') {
-                    result.push_back(op.top());
-                    op.pop();
-                }
-                op.push(c);
-            }
-            //---------------------2.5----------------------------------
-            else if((op.top()=='+' || op.top()=='-') && (c=='+' || c=='-')){
 
-                while(!op.empty() && (op.top()=='+' || op.top()=='-') && op.top()!='('){
-                    result.push_back(op.top());
-                    op.pop();
-                }
-                op.push(c);
+int precedence(char op){
+
+    if (op == '*' || op == '/') return 2;
+
+    if (op == '+' || op == '-') return 1;
+
+    return 0;
+}
+
+string infix_to_postfix(string exp){
+    stack<char> op;
+    string result;
+
+    for (char c : exp){
+
+        if (isdigit(c)){result.push_back(c);}
+
+        else if (c == '('){op.push(c);}
+
+        else if (c == ')'){
+            while (!op.empty() && op.top() != '('){
+                result.push_back(op.top());
+                op.pop();
             }
-            //------------------------end---------------------------------
+            if (!op.empty()) op.pop();
         }
-        // ------------------3--------------------
-        else if(c=='('){ op.push(c);}
-       //--------------------4----------------------
-        else if(c==')'){
-            while(!op.empty() && op.top()!='('){
-               result.push_back(op.top());
+        else if (c == '+' || c == '-' || c == '*' || c == '/'){
 
-                op.pop();
-
-            }
-            if(!op.empty()){
-
+            while (!op.empty() &&op.top() != '(' &&precedence(op.top()) >= precedence(c))
+            {
+                result.push_back(op.top());
                 op.pop();
             }
+
+            op.push(c);
         }
     }
 
-    //------------5-----------------
-    while (!op.empty()) {
+
+    while (!op.empty())
+    {
         result.push_back(op.top());
         op.pop();
     }
 
-    cout << endl;
+    return result;
+}
 
-  return result;
-};
 double operation(string exp) {
     calculator calculator;
     stack<double> outcome;
@@ -190,8 +173,6 @@ double operation(string exp) {
 
     }
     return outcome.top();
-
-
 
 
 };
