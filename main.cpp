@@ -44,9 +44,9 @@ Future Improvements:
 #include <calculator.h>
 #include <string>
 #include <stack>
-#include <algorithm>
+#include <vector>
 using namespace std;
-
+vector<string> tokenize(string exp);
 string infix_to_postfix(string exp);
 double operation(string exp);
 
@@ -173,6 +173,48 @@ double operation(string exp) {
 
     }
     return outcome.top();
+
+
+};
+// 22+11+(5)
+vector<string> tokenize(string exp) {
+    vector<string> result;
+    string token;
+    for (char c : exp) {
+        if (isdigit(c)) {
+            token.push_back(c);
+        }
+        else if ( c=='+' || c=='-'  || c=='*' || c=='/') {
+            if (!token.empty()) {
+                result.push_back(token);
+                token.clear();
+            }
+            token.push_back(c);
+            result.push_back(token);
+            token.clear();
+        }
+        else if (c=='(') {
+            token.push_back(c);
+            result.push_back(token);
+            token.clear();
+        }
+        else if ( c==')') {
+            result.push_back(token);
+            token.clear();
+            token.push_back(c);
+            result.push_back(token);
+            token.clear();
+        }
+        else if (isspace(c)) {
+            continue;
+        }
+
+    }
+    if (!token.empty()) {
+        result.push_back(token);
+    }
+
+    return result;
 
 
 };
