@@ -42,13 +42,14 @@ Future Improvements:
 
 #include <iostream>
 #include <calculator.h>
+#include <cmath>
 #include <string>
 #include <stack>
 #include <vector>
 using namespace std;
-vector<string> tokenize(string exp);
-string infix_to_postfix(string exp);
-double operation(string exp);
+vector<string> tokenize(const string& exp);
+vector<string> infix_to_postfix(const vector<string>& exp);
+double evaluate_postfix(const vector<string>& postfix);
 
 
 int main() {
@@ -56,10 +57,10 @@ int main() {
     char answer;
     do {
         cout << "Enter an expression: "<<endl;
-        cin >> expression;
+         cin >> expression;
 
-        string exp= infix_to_postfix(expression);
-        double result = operation(exp);
+        vector<string> exp= infix_to_postfix(tokenize(expression));
+        double result = evaluate_postfix(exp);
         cout << "result: "<<result << endl;
 
         cout << "Do you want to perform another calculation? (Y/N): ";
@@ -78,26 +79,26 @@ int precedence(char op){
     return 0;
 }
 
-string infix_to_postfix(string exp){
-    stack<char> op;
-    string result;
+vector<string> infix_to_postfix(const vector<string>& exp){
+    stack<string> op;
+   vector<string> result;
 
-    for (char c : exp){
+    for (const string& c : exp){
 
-        if (isdigit(c)){result.push_back(c);}
+        if (isdigit(c[0])||isdigit(c[1]) || c[0]=='.'){result.push_back(c);}
 
-        else if (c == '('){op.push(c);}
+        else if (c[0] == '('){op.push(c);}
 
-        else if (c == ')'){
-            while (!op.empty() && op.top() != '('){
+        else if (c[0] == ')'){
+            while (!op.empty() && op.top()[0] != '('){
                 result.push_back(op.top());
                 op.pop();
             }
             if (!op.empty()) op.pop();
         }
-        else if (c == '+' || c == '-' || c == '*' || c == '/'){
+        else if (c[0] == '+' || c[0] == '-' || c[0] == '*' || c[0] == '/'){
 
-            while (!op.empty() &&op.top() != '(' &&precedence(op.top()) >= precedence(c))
+            while (!op.empty() &&op.top()[0] != '(' &&precedence(op.top()[0]) >= precedence(c[0]))
             {
                 result.push_back(op.top());
                 op.pop();
@@ -117,16 +118,15 @@ string infix_to_postfix(string exp){
     return result;
 }
 
-double operation(string exp) {
+double evaluate_postfix(const vector<string>& postfix) {
     calculator calculator;
     stack<double> outcome;
-    double result;
     double firstNum;
     double secNum;
-    for(int i = 0; i < exp.length(); i++) {
-        if(isdigit(exp[i])){ outcome.push(exp[i]-'0'); }
+    for(const string& c : postfix) {
+        if(isdigit(c[0])||isdigit(c[1])||c[0]=='.'){ outcome.push(stod(c)); }
         else {
-            switch(exp[i]) {
+            switch(c[0]) {
                 case '+':
                  firstNum = outcome.top(); outcome.pop();
 
@@ -159,6 +159,8 @@ double operation(string exp) {
                     outcome.push( calculator.divide(secNum, firstNum));
 
                     break;
+                default:
+                    throw invalid_argument("Unknown operator");
 
 
             }
@@ -176,12 +178,25 @@ double operation(string exp) {
 
 
 };
-// 22+11+(5)
-vector<string> tokenize(string exp) {
+// ---------------------------tokenize---------------------
+// ---------------------------tokenize---------------------
+
+vector<string> tokenize(const string& exp) {
     vector<string> result;
     string token;
-    for (char c : exp) {
-        if (isdigit(c)) {
+    for (int i = 0; i < exp.length(); i++) {
+        char c=exp[i];
+        if (isdigit(c)||c=='.') {
+            token.push_back(c);
+        }
+        else if (c == '-' &&
+        (i == 0 ||
+         exp[i-1] == '+' ||
+         exp[i-1] == '-' ||
+         exp[i-1] == '*' ||
+         exp[i-1] == '/' ||
+         exp[i-1] == '('))
+        {
             token.push_back(c);
         }
         else if ( c=='+' || c=='-'  || c=='*' || c=='/') {
