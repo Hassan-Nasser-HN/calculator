@@ -6,12 +6,14 @@
 #define CALCULATOR_TOKENIZER_H
 #include <string>
 #include <vector>
+#include <set>
 using namespace std;
 
 class Tokenizer {
     public:
     vector<string> tokenize(const string& exp);
-
+private:
+    static  bool isOperator(const char& exp);
 
 };
 

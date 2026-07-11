@@ -4,26 +4,25 @@
 
 #include "include/Tokenizer.h"
 
+bool Tokenizer::isOperator(const char &exp) {
+    static  const set <char> operators={'+','-','*','/'};
+    if (operators.count(exp))return true;
+    return false;
+
+};
 
 vector<string> Tokenizer::tokenize(const string& exp) {
     vector<string> result;
     string token;
-    for (int i = 0; i < exp.length(); i++) {
+    for (int i = 0; i < exp.size(); i++) {
         char c=exp[i];
-        if (isdigit(c)||c=='.') {
-            token.push_back(c);
-        }
-        else if (c == '-' &&
-        (i == 0 ||
-         exp[i-1] == '+' ||
-         exp[i-1] == '-' ||
-         exp[i-1] == '*' ||
-         exp[i-1] == '/' ||
-         exp[i-1] == '('))
-        {
-            token.push_back(c);
-        }
-        else if ( c=='+' || c=='-'  || c=='*' || c=='/') {
+
+        if (isdigit(c)||c=='.') {token.push_back(c);}
+
+        else if (c == '-' && (i == 0 ||isOperator(exp[i-1])||exp[i-1] == '(')) {token.push_back(c);}
+
+
+        else if ( isOperator(c)) {
             if (!token.empty()) {
                 result.push_back(token);
                 token.clear();
@@ -44,16 +43,15 @@ vector<string> Tokenizer::tokenize(const string& exp) {
             result.push_back(token);
             token.clear();
         }
-        else if (isspace(c)) {
-            continue;
-        }
+
 
     }
-    if (!token.empty()) {
-        result.push_back(token);
-    }
+
+    if (!token.empty()) {result.push_back(token);}
+
 
     return result;
 
 
-};
+}
+
