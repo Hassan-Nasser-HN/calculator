@@ -13,6 +13,13 @@ int parser::precedence(char op){
     return 0;
 }
 
+bool parser::isOperator(const char &exp) {
+    static  const set <char> operators={'+','-','*','/'};
+    if (operators.count(exp))return true;
+    return false;
+
+};
+
 
 vector<string> parser::infix_to_postfix(const vector<string>& exp){
     stack<string> op;
@@ -31,7 +38,7 @@ vector<string> parser::infix_to_postfix(const vector<string>& exp){
             }
             if (!op.empty()) op.pop();
         }
-        else if (c[0] == '+' || c[0] == '-' || c[0] == '*' || c[0] == '/'){
+        else if (isOperator(c[0])){
 
             while (!op.empty() &&op.top()[0] != '(' &&precedence(op.top()[0]) >= precedence(c[0]))
             {

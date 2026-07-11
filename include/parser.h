@@ -7,15 +7,20 @@
 #include <string>
 #include <vector>
 #include <stack>
+#include <set>
 using namespace std;
 
 class parser {
+private:
+    vector<string> infix_to_postfix(const vector<string>& exp);
+
     public:
     int precedence(char op);
+    bool isOperator(const char& op);
 
 
 
-    vector<string> infix_to_postfix(const vector<string>& exp);
+
 };
 
 
