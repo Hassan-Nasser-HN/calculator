@@ -60,7 +60,7 @@ using namespace std;
 int main() {
     string expression;
     char answer;
-    validator validator;
+
     Tokenizer tokenizer;
     calculator calculator;
     parser parser;
@@ -68,7 +68,7 @@ int main() {
     do {
         cout << "Enter an expression: "<<endl;
          cin >> expression;
-         if (validator.validation_expression(expression)) {
+         if (validator::validation_expression(expression)) {
              vector<string> exp= parser.infix_to_postfix(tokenizer.tokenize(expression));
              double result = calculator.evaluate_postfix(exp);
              cout << "result: "<<result << endl;

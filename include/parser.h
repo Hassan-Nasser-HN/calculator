@@ -11,10 +11,10 @@
 using namespace std;
 
 class parser {
-private:
+public:
     vector<string> infix_to_postfix(const vector<string>& exp);
 
-    public:
+private:
     int precedence(char op);
     bool isOperator(const char& op);
 

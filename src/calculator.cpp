@@ -7,7 +7,7 @@
 
 
 double calculator::evaluate_postfix(const vector<string>& postfix) {
-    calculator calculator;
+
     stack<double> outcome;
     double firstNum;
     double secNum;
@@ -20,7 +20,7 @@ double calculator::evaluate_postfix(const vector<string>& postfix) {
 
                     secNum = outcome.top(); outcome.pop();
 
-                    outcome.push(calculator.add(firstNum, secNum));
+                    outcome.push(add(firstNum, secNum));
 
                     break;
                 case '-':
@@ -28,7 +28,7 @@ double calculator::evaluate_postfix(const vector<string>& postfix) {
 
                     secNum = outcome.top(); outcome.pop();
 
-                    outcome.push( calculator.minus(secNum, firstNum));
+                    outcome.push( minus(secNum, firstNum));
 
                     break;
                 case '*':
@@ -36,7 +36,7 @@ double calculator::evaluate_postfix(const vector<string>& postfix) {
 
                     secNum = outcome.top(); outcome.pop();
 
-                    outcome.push( calculator.multiply(firstNum, secNum));
+                    outcome.push( multiply(firstNum, secNum));
 
                     break;
                 case '/':
@@ -44,7 +44,7 @@ double calculator::evaluate_postfix(const vector<string>& postfix) {
 
                     secNum = outcome.top(); outcome.pop();
 
-                    outcome.push( calculator.divide(secNum, firstNum));
+                    outcome.push( divide(secNum, firstNum));
 
                     break;
                 default:
