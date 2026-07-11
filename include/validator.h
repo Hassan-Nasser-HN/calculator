@@ -6,13 +6,19 @@
 #define CALCULATOR_VALIDATOR_H
 #include <string>
 #include <set>
+#include <stack>
 using namespace std;
 
 class validator {
-    public:
 
-    bool validation_expression(string test);
+private:
 
+    static bool isEmpty(const string& expression);
+    static bool hasValidCharacters(const string& expression);
+    static bool hasValidOperators(const string& expression);
+    static bool hasBalancedParentheses(const std::string& expression);
+public:
+    static bool validation_expression(const string& test);
 
 };
 
