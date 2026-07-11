@@ -18,7 +18,8 @@ private:
     static bool hasValidOperators(const string& expression);
     static bool hasBalancedParentheses(const std::string& expression);
 public:
-    static bool validation_expression(const string& test);
+    static bool validation_expression( string& test);
+    static string  removeSpaces( string& expression);
 
 };
 

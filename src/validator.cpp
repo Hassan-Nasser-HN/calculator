@@ -5,14 +5,27 @@
 #include "include/validator.h"
 
 
-bool validator::validation_expression(const string& test) {
+bool validator::validation_expression( string& test) {
 
-    return !isEmpty(test) &&
-          hasValidCharacters(test) &&
-          hasBalancedParentheses(test) &&
-          hasValidOperators(test);
+    string clean = removeSpaces(test);
+
+    return !isEmpty(clean) &&
+          hasValidCharacters(clean) &&
+          hasBalancedParentheses(clean) &&
+          hasValidOperators(clean);
 
 
+}
+
+string validator::removeSpaces( string &expression) {
+    string clean;
+    for (char ch : expression) {
+
+        if (!isspace(ch)) {clean += ch;}
+    }
+
+
+    return clean;
 };
 
 bool validator::isEmpty(const string &expression) {return expression.empty();}
