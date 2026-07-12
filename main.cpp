@@ -3,50 +3,59 @@
 //
 // /*
 // /*
-// Version 2 - Tokenization and Expression Parsing Update(AI)
-//
-// New Features:
-// - Added a tokenizer to split the input expression into tokens.
-// - Supports multi-digit numbers (e.g., 12, 345, 1000).
-// - Supports floating-point numbers (e.g., 3.14, 0.5).
-// - Supports basic unary minus (negative numbers) in valid positions.
-// - Ignores whitespace in the input expression.
-// - Converts infix expressions to postfix notation using a cleaner precedence-based algorithm.
-// - Evaluates postfix expressions correctly.
-// - Supports the four basic arithmetic operations:
-//   - Addition (+)
-//   - Subtraction (-)
-//   - Multiplication (*)
-//   - Division (/)
-// - Supports parentheses to control operator precedence.
-// - Uses Object-Oriented Programming by separating arithmetic operations into a Calculator class.
-// - Uses std::stack and std::vector from the C++ Standard Library.
-// - Replaced character-by-character parsing with token-based parsing.
-// - Renamed operation() to evaluate_postfix() for better readability.
-//
-// Current Limitations:
-// - Unary minus is supported only in basic cases.
-// - No validation for invalid mathematical expressions.
-// - No protection against stack underflow when the expression is incorrect.
-// - No handling for mismatched parentheses.
-// - Invalid characters are not detected.
-// - Multiple decimal points inside a number are not validated.
-// - Division by zero handling depends on the Calculator class implementation.
-// - Error handling can be improved using exceptions.
-// - The project can be further refactored into dedicated Tokenizer, Parser, and Evaluator classes.
-//
-// Future Improvements:
-// - Add full unary operator support.
-// - Improve expression validation.
-// - Add exception handling.
-// - Detect invalid operators and malformed expressions.
-// - Support mathematical functions (sqrt, sin, cos, pow, etc.).
-// - Support exponentiation (^).
-// - Add modulus (%) operator.
-// - Improve the console user interface.
-// - Add unit tests.
-// - Refactor the project following SOLID principles.
-// */
+/*
+ * Version 3 - Architecture, Validation, and Code Quality Update  (AI)
+ *
+ * New Features:
+ * - Refactored the project into dedicated classes:
+ *   - Tokenizer
+ *   - Parser
+ *   - Evaluator
+ *   - Calculator
+ *   - Menu
+ * - Improved code organization following the Single Responsibility Principle (SRP).
+ * - Added better expression validation before evaluation.
+ * - Improved unary minus handling in more valid scenarios.
+ * - Added detection for invalid characters.
+ * - Added validation for mismatched parentheses.
+ * - Added validation for malformed mathematical expressions.
+ * - Added protection against stack underflow during postfix evaluation.
+ * - Improved floating-point number parsing and validation.
+ * - Improved error reporting with descriptive messages.
+ * - Enhanced readability by simplifying parsing and evaluation logic.
+ * - Improved console user interface and menu navigation.
+ * - Optimized the infix-to-postfix conversion algorithm.
+ *
+ * Supported Features:
+ * - Multi-digit numbers.
+ * - Floating-point numbers.
+ * - Unary minus.
+ * - Parentheses.
+ * - Addition (+)
+ * - Subtraction (-)
+ * - Multiplication (*)
+ * - Division (/)
+ *
+ * Current Limitations:
+ * - Exponentiation (^) is not supported.
+ * - Modulus (%) is not supported.
+ * - Mathematical functions (sqrt, sin, cos, tan, log, etc.) are not implemented.
+ * - Variables and constants are not supported.
+ * - Expression history is not available.
+ * - Error handling can still be enhanced using custom exception classes.
+ *
+ * Future Improvements:
+ * - Apply the remaining SOLID principles throughout the project.
+ * - Introduce an abstract Operation interface for arithmetic operations.
+ * - Add support for exponentiation (^).
+ * - Add modulus (%) operator.
+ * - Support mathematical functions (sqrt, sin, cos, tan, log, pow).
+ * - Implement expression history.
+ * - Add memory functions (M+, M-, MR, MC).
+ * - Create a graphical user interface using Qt.
+ * - Add comprehensive unit tests.
+ * - Improve documentation using Doxygen.
+ */
 
 #include "include/calculator.h"
 #include "include/validator.h"
