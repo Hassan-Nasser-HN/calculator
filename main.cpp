@@ -67,7 +67,7 @@ int main() {
 
     do {
         cout << "Enter an expression: "<<endl;
-         cin >> expression;
+         getline(cin,expression);
          if (validator::validation_expression(expression)) {
              vector<string> exp= parser.infix_to_postfix(tokenizer.tokenize(expression));
              double result = calculator.evaluate_postfix(exp);

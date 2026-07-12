@@ -19,7 +19,7 @@ private:
     static bool hasBalancedParentheses(const std::string& expression);
 public:
     static bool validation_expression( string& test);
-    static string  removeSpaces( string& expression);
+    static void  removeSpaces( string& expression);
 
 };
 

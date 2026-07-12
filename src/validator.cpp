@@ -7,25 +7,24 @@
 
 bool validator::validation_expression( string& test) {
 
-    string clean = removeSpaces(test);
+    removeSpaces(test);
 
-    return !isEmpty(clean) &&
-          hasValidCharacters(clean) &&
-          hasBalancedParentheses(clean) &&
-          hasValidOperators(clean);
+    return !isEmpty(test) &&
+          hasValidCharacters(test) &&
+          hasBalancedParentheses(test) &&
+          hasValidOperators(test);
 
 
 }
 
-string validator::removeSpaces( string &expression) {
-    string clean;
+void validator::removeSpaces( string &expression) {
+   string temp;
     for (char ch : expression) {
 
-        if (!isspace(ch)) {clean += ch;}
+        if (!isspace(ch)) {temp += ch;}
     }
 
-
-    return clean;
+    expression = temp;
 };
 
 bool validator::isEmpty(const string &expression) {return expression.empty();}
