@@ -1,0 +1,13 @@
+//
+// Created by 20111 on 7/28/2026.
+//
+
+#ifndef CALCULATOR_EXPRESSIONUTILS_H
+#define CALCULATOR_EXPRESSIONUTILS_H
+
+
+class ExpressionUtils {
+};
+
+
+#endif //CALCULATOR_EXPRESSIONUTILS_H

@@ -4,22 +4,17 @@
 
 #ifndef CALCULATOR_CALCULATOR_H
 #define CALCULATOR_CALCULATOR_H
-#include <string>
-#include <vector>
-#include <stack>
+
 #include <iostream>
 using namespace std;
 
-class calculator {
-private:
+class operations {
 
-public:
-
-    double evaluate_postfix(const vector<string>& postfix);
-    double add(double firstNum, double secNum);
-    double minus(double firstNum, double secNum);
-    double multiply(double firstNum, double secNum);
-    double divide(double firstNum, double secNum);
+protected:
+    static  double add(double firstNum, double secNum);
+   static double minus(double firstNum, double secNum);
+   static double multiply(double firstNum, double secNum);
+   static  double divide(double firstNum, double secNum);
     /*
     double mod(double firstNum, double secNum);
     double power(double firstNum, int secNum);
