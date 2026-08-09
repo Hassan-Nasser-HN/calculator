@@ -6,14 +6,15 @@
 #define CALCULATOR_TOKENIZER_H
 #include <string>
 #include <vector>
-#include <set>
+
+#include "ExpressionUtils.h"
 using namespace std;
 
-class Tokenizer {
+class Tokenizer:protected ExpressionUtils{
     public:
     vector<string> tokenize(const string& exp);
 private:
-    static  bool isOperator(const char& exp);
+
 
 };
 

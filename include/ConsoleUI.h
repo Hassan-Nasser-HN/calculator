@@ -9,6 +9,7 @@
 #include <include/Tokenizer.h>
 #include<include/Parser.h>
 #include<include/Evaluator.h>
+#include<include/History.h>
 
 using namespace std;
 
@@ -17,6 +18,7 @@ class ConsoleUI {
 public:
     void start();
 private:
+    History history;
   void showMenu();
   void basicCalculator();
 

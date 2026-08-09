@@ -4,21 +4,8 @@
 
 #include "include/parser.h"
 
-int parser::precedence(char op){
 
-    if (op == '*' || op == '/') return 2;
 
-    if (op == '+' || op == '-') return 1;
-
-    return 0;
-}
-
-bool parser::isOperator(const char &exp) {
-    static  const set <char> operators={'+','-','*','/'};
-    if (operators.count(exp))return true;
-    return false;
-
-};
 
 
 vector<string> parser::infix_to_postfix(const vector<string>& exp){
@@ -38,9 +25,9 @@ vector<string> parser::infix_to_postfix(const vector<string>& exp){
             }
             if (!op.empty()) op.pop();
         }
-        else if (isOperator(c[0])){
+        else if (isOperator(c)){
 
-            while (!op.empty() &&op.top()[0] != '(' &&precedence(op.top()[0]) >= precedence(c[0]))
+            while (!op.empty() &&op.top()[0] != '(' &&precedence(op.top()) >= precedence(c))
             {
                 result.push_back(op.top());
                 op.pop();

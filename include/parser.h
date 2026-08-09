@@ -8,15 +8,15 @@
 #include <vector>
 #include <stack>
 #include <set>
+
+#include "ExpressionUtils.h"
 using namespace std;
 
-class parser {
+class parser:protected ExpressionUtils{
 public:
     vector<string> infix_to_postfix(const vector<string>& exp);
 
-private:
-    int precedence(char op);
-    bool isOperator(const char& op);
+
 
 
 

@@ -20,7 +20,9 @@ void ConsoleUI::start(){
             case 1:
                 basicCalculator();
                 break;
-
+            case 2:
+                history.outputeHistory();
+                break;
             case 0:
                 cout << "Goodbye!\n";
                 break;
@@ -41,7 +43,10 @@ void ConsoleUI::showMenu() {
     cout << "          Math Application\n";
     cout << "=====================================\n";
     cout << "1. Basic Calculator\n";
+    cout<<"2. Show History\n";
+
     cout << "0. Exit\n";
+
     cout << "=====================================\n";
     cout << "Enter your choice: ";
 }
@@ -68,15 +73,16 @@ void ConsoleUI::basicCalculator()
             vector<string> postfix =
                     parser.infix_to_postfix(tokens);
 
-            double result =
-                    evaluator.evaluate_postfix(postfix);
+            double result =evaluator.evaluate_postfix(postfix);
 
             cout << "Result: " << result << endl;
+            history.inputeHistory(expression,result);
         }
         else
         {
             cout << "Invalid expression.\n";
         }
+
 
         cout << "\nDo you want to perform another calculation? (Y/N): ";
         cin >> answer;

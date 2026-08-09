@@ -4,12 +4,7 @@
 
 #include "include/Tokenizer.h"
 
-bool Tokenizer::isOperator(const char &exp) {
-    static  const set <char> operators={'+','-','*','/'};
-    if (operators.count(exp))return true;
-    return false;
 
-};
 
 vector<string> Tokenizer::tokenize(const string& exp) {
     vector<string> result;
@@ -19,18 +14,24 @@ vector<string> Tokenizer::tokenize(const string& exp) {
 
         if (isdigit(c)||c=='.') {token.push_back(c);}
 
-        else if (c == '-' && (i == 0 ||isOperator(exp[i-1])||exp[i-1] == '(')) {token.push_back(c);}
-
-
-        else if ( isOperator(c)) {
-            if (!token.empty()) {
-                result.push_back(token);
-                token.clear();
+        if (c == '-')
+        {
+            if (i == 0)
+            {
+                token.push_back(c);
             }
-            token.push_back(c);
-            result.push_back(token);
-            token.clear();
+            else
+            {
+                string previous(1, exp[i - 1]);
+
+                if (isOperator(previous) ||
+                    exp[i - 1] == '(')
+                {
+                    token.push_back(c);
+                }
+            }
         }
+
         else if (c=='(') {
             token.push_back(c);
             result.push_back(token);
@@ -43,7 +44,21 @@ vector<string> Tokenizer::tokenize(const string& exp) {
             result.push_back(token);
             token.clear();
         }
+        else
+        {
+            string current(1, c);
 
+            if (isOperator(current))
+            {
+                if (!token.empty())
+                {
+                    result.push_back(token);
+                    token.clear();
+                }
+
+                result.push_back(current);
+            }
+        }
 
     }
 
