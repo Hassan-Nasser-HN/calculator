@@ -12,7 +12,6 @@
  *   - Parser
  *   - Evaluator
  *   - Calculator
- *   - Menu
  * - Improved code organization following the Single Responsibility Principle (SRP).
  * - Added better expression validation before evaluation.
  * - Improved unary minus handling in more valid scenarios.
@@ -57,40 +56,13 @@
  * - Improve documentation using Doxygen.
  */
 
-#include "include/calculator.h"
-#include "include/validator.h"
-#include "include/Tokenizer.h"
-#include "include/parser.h"
-#include <iostream>
-#include <string>
-#include <vector>
-using namespace std;
+
+
+
+#include<include/ConsoleUI.h>
 
 int main() {
-    string expression;
-    char answer;
-
-    Tokenizer tokenizer;
-    calculator calculator;
-    parser parser;
-
-    do {
-        cout << "Enter an expression: "<<endl;
-         getline(cin,expression);
-         if (validator::validation_expression(expression)) {
-             vector<string> exp= parser.infix_to_postfix(tokenizer.tokenize(expression));
-             double result = calculator.evaluate_postfix(exp);
-             cout << "result: "<<result << endl;
-         }
-         else{cout << "Invalid expression" << endl;}
-
-        cout << "Do you want to perform another calculation? (Y/N): ";
-        cin >> answer;
-
-    }while (answer == 'Y' || answer == 'y');
+    ConsoleUI app;
+    app.start();
 }
-
-
-
-
 
