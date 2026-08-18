@@ -7,6 +7,10 @@
 
 
 class operation {
+public:
+    virtual double execute(double firstOperand, double secondOperand) const = 0;
+    virtual ~operation() = default;
+
 };
 
 

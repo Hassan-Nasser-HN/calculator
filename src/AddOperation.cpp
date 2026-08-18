@@ -3,3 +3,7 @@
 //
 
 #include "../include/AddOperation.h"
+
+double AddOperation::execute(double firstOperand, double secondOperand) const {
+    return firstOperand + secondOperand;
+}
