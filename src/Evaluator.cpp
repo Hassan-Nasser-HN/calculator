@@ -3,29 +3,37 @@
 //
 
 #include "../include/Evaluator.h"
+#include <stack>
+#include <stdexcept>
 
+Evaluator::Evaluator(const OperatorRegistry& operatorRegistry) : operators(operatorRegistry) {}
 
-Evaluator::Evaluator() {
-    operatorMap["+"] = add;
-    operatorMap["-"] = minus;
-    operatorMap["*"] = multiply;
-    operatorMap["/"] = divide;
-
+bool Evaluator::isNumber(const string& token) {
+    if (token.empty()) return false;
+    return isdigit(token[0]) ||
+           (token.size() > 1 && isdigit(token[1])) ||
+           token[0] == '.';
 }
 
-double Evaluator::evaluate_postfix(const vector<string>& postfix) {
+double Evaluator::evaluatePostfix(const vector<string>& postfix) const{
 
-    stack<double> outcome;
-    double firstNum;
-    double secNum;
-    for(const string& c : postfix) {
-        if(isdigit(c[0])||isdigit(c[1])||c[0]=='.'){ outcome.push(stod(c)); }
-        else {
-            firstNum=outcome.top(); outcome.pop();
-            secNum=outcome.top(); outcome.pop();
-          outcome.push(operatorMap[c](secNum,firstNum));
+    stack<double> values;
 
+    for (const string& token : postfix) {
+        if (isNumber(token)) {
+            values.push(stod(token));
+        } else {
+            if (values.size() < 2) {
+                throw runtime_error("Malformed expression: not enough operands for '" + token + "'");
+            }
+            double secondOperand = values.top(); values.pop();
+            double firstOperand = values.top(); values.pop();
+            values.push(operators.apply(token, firstOperand, secondOperand));
         }
     }
-    return outcome.top();
+    if (values.size() != 1) {
+        throw runtime_error("Malformed expression: leftover operands");
+    }
+
+    return values.top();
 };

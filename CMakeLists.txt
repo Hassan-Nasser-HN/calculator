@@ -17,28 +17,25 @@ add_executable(calculator
         src/SubtractOperation.cpp
         src/DivideOperation.cpp
 
+        include/Calculator.h
+        include/ConsoleUI.h
+        include/OperatorRegistry.h
         include/parser.h
         include/Tokenizer.h
         include/validator.h
         include/Evaluator.h
 
-
+        src/Calculator.cpp
+        src/ConsoleUI.cpp
+        src/OperatorRegistry.cpp
         src/parser.cpp
         src/Tokenizer.cpp
         src/validator.cpp
         src/Evaluator.cpp
+
+        include/HistoryRepository.h
+        include/FileHistoryRepository.h
+        src/FileHistoryRepository.cpp
+
         main.cpp
-        src/ExpressionUtils.cpp
-        include/ExpressionUtils.h
-        src/ConsoleUI.cpp
-        include/ConsoleUI.h
-        src/History.cpp
-        include/History.h
-
-
-
-
-
-
-
 )

@@ -4,26 +4,24 @@
 
 #ifndef CALCULATOR_CONSOLEUI_H
 #define CALCULATOR_CONSOLEUI_H
-#include <iostream>
-#include <limits>
-#include <include/Tokenizer.h>
-#include<include/Parser.h>
-#include<include/Evaluator.h>
-#include<include/History.h>
 
-using namespace std;
+#include "Calculator.h"
+#include "HistoryRepository.h"
+
 
 
 class ConsoleUI {
 public:
+    explicit ConsoleUI(HistoryRepository& historyRepository);
+
     void start();
+
 private:
-    History history;
-  void showMenu();
-  void basicCalculator();
+    HistoryRepository& history;
+    Calculator calculator;
 
-
-
+    void showMenu() const;
+    void basicCalculator();
 };
 
 

@@ -4,20 +4,20 @@
 
 #ifndef CALCULATOR_EVALUATOR_H
 #define CALCULATOR_EVALUATOR_H
-#include "operations.h"
+#include "../include/OperatorRegistry.h"
 #include <string>
 #include <vector>
-#include <stack>
-#include <functional>
-#include <unordered_map>
+
 using namespace std;
-class Evaluator: operations {
-    unordered_map<string, function< double(double, double)>> operatorMap;
-
-    public:
+class Evaluator {
+private:
+    const OperatorRegistry& operators;
+    static bool isNumber(const std::string& token);
+public:
     Evaluator();
+    explicit Evaluator(const OperatorRegistry& operatorRegistry);
+    double evaluatePostfix(const vector<string>& postfix) const;
 
-    double evaluate_postfix(const vector<string>& postfix);
 };
 
 

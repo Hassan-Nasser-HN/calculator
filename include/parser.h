@@ -9,12 +9,16 @@
 #include <stack>
 #include <set>
 
-#include "ExpressionUtils.h"
+#include "OperatorRegistry.h"
 using namespace std;
 
-class parser:protected ExpressionUtils{
+class parser:protected OperatorRegistry{
+private:
+    const OperatorRegistry& operators;
 public:
-    vector<string> infix_to_postfix(const vector<string>& exp);
+    explicit parser(const OperatorRegistry& operatorRegistry);
+
+    vector<string> infixToPostfix(const vector<string>& tokens) const;
 
 
 

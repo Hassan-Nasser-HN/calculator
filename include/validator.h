@@ -5,21 +5,24 @@
 #ifndef CALCULATOR_VALIDATOR_H
 #define CALCULATOR_VALIDATOR_H
 #include <string>
-#include <set>
-#include <stack>
-using namespace std;
 
+#include "OperatorRegistry.h"
+using namespace std;
 class validator {
 
 private:
+    const OperatorRegistry& operators;
 
-    static bool isEmpty(const string& expression);
-    static bool hasValidCharacters(const string& expression);
-    static bool hasValidOperators(const string& expression);
-    static bool hasBalancedParentheses(const std::string& expression);
+     void removeSpaces(std::string& expression) const;
+     bool isEmpty(const string& expression) const;
+     bool hasValidCharacters(const string& expression) const;
+     bool hasValidOperators(const string& expression)const;
+     bool hasBalancedParentheses(const std::string& expression)const;
 public:
-    static bool validation_expression( string& test);
-    static void  removeSpaces( string& expression);
+    explicit validator(const OperatorRegistry& operatorRegistry);
+
+    bool validateExpression(string& expression) const;
+
 
 };
 

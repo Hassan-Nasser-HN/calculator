@@ -3,45 +3,45 @@
 //
 
 #include "include/parser.h"
-
-
-
-
-
-vector<string> parser::infix_to_postfix(const vector<string>& exp){
-    stack<string> op;
+parser::parser(const OperatorRegistry& operatorRegistry) : operators(operatorRegistry) {}
+vector<string> parser::infixToPostfix(const vector<string>& tokens) const{
+    stack<string> opStack;
     vector<string> result;
 
-    for (const string& c : exp){
+    for (const string& token : tokens){
 
-        if (isdigit(c[0])||isdigit(c[1]) || c[0]=='.'){result.push_back(c);}
+        bool isNumber = isdigit(token[0]) ||
+                         (token.size() > 1 && isdigit(token[1])) ||
+                          token[0] == '.';
 
-        else if (c[0] == '('){op.push(c);}
+        if (isNumber) { result.push_back(token);}
 
-        else if (c[0] == ')'){
-            while (!op.empty() && op.top()[0] != '('){
-                result.push_back(op.top());
-                op.pop();
+        else if (token[0] == '('){opStack.push(token);}
+
+
+        else if (token[0] == ')'){
+
+            while (!opStack.empty() && opStack.top()[0] != '('){
+                result.push_back(opStack.top());
+                opStack.pop();
             }
-            if (!op.empty()) op.pop();
+            if (!opStack.empty()) opStack.pop();
         }
-        else if (isOperator(c)){
-
-            while (!op.empty() &&op.top()[0] != '(' &&precedence(op.top()) >= precedence(c))
-            {
-                result.push_back(op.top());
-                op.pop();
-            }
-
-            op.push(c);
+        else if (operators.isOperator(token)) {
+            while (!opStack.empty() && opStack.top()[0] != '(' &&
+                operators.precedence(opStack.top()) >= operators.precedence(token)) {
+                result.push_back(opStack.top());
+                opStack.pop();
+                }
+            opStack.push(token);
         }
     }
 
 
-    while (!op.empty())
+    while (!opStack.empty())
     {
-        result.push_back(op.top());
-        op.pop();
+        result.push_back(opStack.top());
+        opStack.pop();
     }
 
     return result;
